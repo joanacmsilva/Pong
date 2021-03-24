@@ -8,6 +8,9 @@ public class Ball : MonoBehaviour
     float velocidade = 5f;
     bool bolaFoiLancada = false;
 
+    [SerializeField]
+    float tempodeEspera = 2f;
+    float tempoDecorrido = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +23,7 @@ public class Ball : MonoBehaviour
         //    GetComponent<Rigidbody2D>().velocity = velocidade * Vector2.left;
         //}
 
-        GetComponent<Rigidbody2D>().velocity = velocidade * Random.insideUnitCircle;
+        
     }
 
     // Update is called once per frame
@@ -28,7 +31,14 @@ public class Ball : MonoBehaviour
     {
         if(bolaFoiLancada == false)
         {
-            //Magia....
+            tempoDecorrido += Time.deltaTime;
+
+            if(tempoDecorrido >= tempodeEspera)
+            {
+                GetComponent<Rigidbody2D>().velocity = velocidade * Random.onUnitSphere;
+                bolaFoiLancada = true;
+            }
+            
         }
     }
 }
